@@ -85,7 +85,7 @@ class SiteController extends Controller
     {
         $action = "add_statistics";
 
-        if (!Yii::$app->user->isGuest) {
+        //if (!Yii::$app->user->isGuest) {
             // $get_params = Yii::$app->request->queryParams;
             $cid = Yii::$app->request->get('cid');
 
@@ -126,10 +126,10 @@ class SiteController extends Controller
                 default:
                     $message_error = "Неверный запрос";
             }
-        }
-        else{
-            $message_error = "Добавление в БД под учетной записью гостя не разрешено!";
-        }
+      //  }
+       // else{
+         //   $message_error = "Добавление в БД под учетной записью гостя не разрешено!";
+        //}
 
         return $this->render('index',
             [

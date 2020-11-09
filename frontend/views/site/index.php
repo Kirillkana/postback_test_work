@@ -39,8 +39,8 @@ $this->title = 'My Yii Application';
                 </td>
                 <td><?=$row['trials']?></td>
                 <td>
-                    <?if($row['clicks'])
-                        echo round((($row['trials'] *100)/$row['clicks']),2);
+                    <?if($row['installs'])
+                        echo round((($row['trials'] *100)/$row['installs']),2);
                     else
                         echo '---';?></td>
             </tr>
