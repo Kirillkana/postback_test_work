@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'My Yii Application';
 ?>
 
-<? if ($action == "add_statistics_new_main"){?>
+<? if ($action == "add_statistics_new_conf_main"){?>
     <b><? if($message_error) echo 'Ошибка: '. $message_error; else echo 'Запись успешно добавлена!'; ?></b>
 <?}else if ($action == "get_statistics"){?>
     <b><? if($message_error) echo 'Ошибка: '. $message_error; else { echo 'Статистика по таблице!'; ?></b>
