@@ -74,25 +74,25 @@ class StatisticsController extends ActiveController
                     ->Where(['>=','time', $requestParams['date1']])
                     ->andWhere(['<=','time', $requestParams['date2']])
                     ->andWhere(['campaign_id'=> $requestParams['campaign_id']])
-                    ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
+                    ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
                     (round((SUM(IF(event = 'install', 1, 0))*100) / (SUM(IF(event = 'click', 1, 0))),2)) as CRi,
-                    (round((SUM(IF(event = 'trial', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")]);
+                    (round((SUM(IF(event = 'trial_started', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")]);
             }else
                 if ($requestParams['campaign_id'] && (!$requestParams['date1'] || !$requestParams['date2'])){
                //$query = $modelClass::findBySql("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs,
                // (round((SUM(IF(event = 'install', 1, 0))) / (SUM(IF(event = 'click', 1, 0))),2)) as CRti FROM statistics GROUP BY campaign_id");
                     $query = $modelClass::find()
                         ->Where(['campaign_id'=> $requestParams['campaign_id']])
-                        ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
+                        ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
                     (round((SUM(IF(event = 'install', 1, 0))*100) / (SUM(IF(event = 'click', 1, 0))),2)) as CRi,
-                    (round((SUM(IF(event = 'trial', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")]);
+                    (round((SUM(IF(event = 'trial_started', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")]);
                 }
                 else{
 
                     $query = $modelClass::find()
-                        ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
+                        ->select([new \yii\db\Expression( "campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs, 
                     (round((SUM(IF(event = 'install', 1, 0))*100) / (SUM(IF(event = 'click', 1, 0))),2)) as CRi,
-                    (round((SUM(IF(event = 'trial', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")])
+                    (round((SUM(IF(event = 'trial_started', 1, 0))*100) / (SUM(IF(event = 'install', 1, 0))),2)) as CRti")])
                         ->groupBy('campaign_id');
                 }
         }

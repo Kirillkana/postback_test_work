@@ -119,7 +119,7 @@ class SiteController extends Controller
                         $model_save->save();
                     }
                     break;
-                case 'trial':
+                case 'trial_started':
                 case 'install':
                     $model_save->save();
                     break;
@@ -151,26 +151,26 @@ class SiteController extends Controller
                 if ($sort_form_model->group_at_campaign){
                   //  var_dump($sort_form_model->group_at_campaign);
                     if($sort_form_model->campaign_id && $sort_form_model->date1 && $sort_form_model->date2 ){
-                        $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
+                        $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
                         WHERE time >=" . strtotime($sort_form_model->date1) . " AND time <=" . strtotime($sort_form_model->date2) . " AND campaign_id =" . $sort_form_model->campaign_id . " GROUP BY campaign_id");
                     }
                     else
                         if ($sort_form_model->campaign_id && (!$sort_form_model->date1 || !$sort_form_model->date2)){
-                            $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics WHERE campaign_id =   " . $sort_form_model->campaign_id );
+                            $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics WHERE campaign_id =   " . $sort_form_model->campaign_id );
                         }
                         else
                             if (!$sort_form_model->campaign_id && (!$sort_form_model->date1 || !$sort_form_model->date2)){
-                                $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics GROUP BY campaign_id");
+                                $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics GROUP BY campaign_id");
                             }
                             else
                                 if (!$sort_form_model->campaign_id && ($sort_form_model->date1 && $sort_form_model->date2)){
-                                    $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
+                                    $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
                                     WHERE time >=" . strtotime($sort_form_model->date1) . " AND time <=" . strtotime($sort_form_model->date2) . " GROUP BY campaign_id");
                                 }
                 }
                 else{
                     if($sort_form_model->campaign_id && $sort_form_model->date1 && $sort_form_model->date2 ){
-                        $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
+                        $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics
                         WHERE time >=" . strtotime($sort_form_model->date1) . " AND time <=" . strtotime($sort_form_model->date2) . " AND campaign_id =" . $sort_form_model->campaign_id );
                     }
                     else
@@ -192,7 +192,7 @@ class SiteController extends Controller
 
             }
             else{
-                $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics  GROUP BY campaign_id");
+                $res = $mysqli->query("SELECT campaign_id, SUM(IF(event = 'trial_started', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics  GROUP BY campaign_id");
             }
            // $sql = "SELECT campaign_id, SUM(IF(event = 'trial', 1, 0)) as trials, SUM(IF(event = 'click', 1, 0)) as clicks, SUM(IF(event = 'install', 1, 0)) as installs FROM statistics GROUP BY campaign_id";
            // $model = Statistics::findBySql($sql)->all();
