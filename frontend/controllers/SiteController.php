@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use common\services\MyClass1;
+use common\services\MyClass2;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\SortForm;
 use frontend\models\Statistics;
@@ -9,6 +11,7 @@ use frontend\models\VerifyEmailForm;
 use mysqli;
 use Yii;
 use yii\base\InvalidArgumentException;
+
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -27,6 +30,25 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+
+    protected $my1;
+    protected $my2;
+
+    public function __construct(
+        $id,
+        $module,
+        $config = [],
+        MyClass1 $my1,
+        MyClass2 $my2
+    )
+    {
+        parent::__construct($id, $module, $config);
+        $this->my1 = $my1;
+        $this->my2 = $my2;
+    }
+
+
+
     public function behaviors()
     {
         return [
@@ -78,7 +100,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // $container = new \yii\di\Container;
+         //$container->setSingleton(MyClass2::class, [], ['any_parameters']);
+        // die($this->my2->getParam());
+         return $this->render('index');
     }
 
     public function actionAdd_statistics()
